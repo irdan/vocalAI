@@ -1,0 +1,13 @@
+{
+    "llm_url": "http://localhost:11434/api/generate",
+    "llm_model": "llama3",
+    "tts_model_path": "tts_models/en/jenny/jenny",
+    "whisper_model_name": "small.en",
+    "vosk_model_path": "",
+    "stop_phrase": "stop",
+    "eom_phrase": "porcupine",
+    "end_session_phrase": "stop session",
+    "instructions": "Please be concise. ",
+    "silence_threshold" : -40,
+    "eom_pause_duration": 1.5
+}
