@@ -1,14 +1,17 @@
 import logging
+import threading
 
 class EventManager:
+    _lock = threading.Lock()
     _instance = None
 
     @classmethod
     def get_instance(cls):
         """ Static access method. """
         if cls._instance is None:
-            logging.debug("Creating new instance of EventManager")
-            cls._instance = cls()
+            with cls._lock:
+                logging.debug("Creating new instance of EventManager")
+                cls._instance = cls()
         return cls._instance
 
     @classmethod
