@@ -38,7 +38,11 @@ class SpeechRecognizer:
                                   frames_per_buffer=chunk)
 
     def _load_fast_recognizer(self):
-        self.model = Model(self.config.vosk_model_path)
+        try:
+            self.model = Model(self.config.vosk_model_path)
+        except Exception as e:
+            raise RuntimeError(f"Unable to load vosk model: {str(e)}. Did you remember to update vosk model path in config? Current path value: '{self.config.vosk_model_path}'")
+
         self.recognizer = KaldiRecognizer(self.model, self.rate)
         self.recognizer.SetWords(True)  # Enable word-level recognition
 
