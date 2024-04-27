@@ -3,7 +3,7 @@ from audio_player import AudioPlayer
 from speech_recognition import SpeechRecognizer
 from llm_interaction import LLMInteraction
 from tts_handler import TTSHandler
-from util import load_config, suppress_output, restore_output, AppConfig
+from util import load_config, AppConfig
 from logger import setup_logging
 
 
@@ -17,13 +17,9 @@ def main():
 
     audio_player = AudioPlayer()
     llm_interaction = LLMInteraction(config)
+    speech_recognizer = SpeechRecognizer(config)
+    tts_handler = TTSHandler(config)
 
-    old_stdout, old_stderr, devnull = suppress_output()
-    try:
-        speech_recognizer = SpeechRecognizer(config)
-        tts_handler = TTSHandler(config)
-    finally:
-        restore_output(old_stdout, old_stderr, devnull)
     logger.info("Init completed")
 
     while True:

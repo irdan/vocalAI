@@ -4,6 +4,7 @@ import torch
 import wave
 from io import BytesIO
 from TTS.api import TTS
+from util import suppress_output, restore_output
 
 class TTSHandler:
     def __init__(self, config):
@@ -11,7 +12,14 @@ class TTSHandler:
         if self.device != "cuda":
             raise RuntimeError("TTS requires a GPU")
         self.logger = logging.getLogger(__name__)
-        self.tts_model = TTS(config.tts_model_path).to(self.device)
+
+        old_stdout, old_stderr, devnull = suppress_output()
+        try:
+            self.tts_model = TTS(config.tts_model_path).to(self.device)
+        except Exception as e:
+            raise Exception(f"failed to load TTS model: {str(e)}")
+        finally:
+            restore_output(old_stdout, old_stderr, devnull)
 
     def get_audio(self, text):
         wav_samples = self.tts_model.tts(text=text)

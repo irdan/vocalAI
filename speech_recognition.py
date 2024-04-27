@@ -5,8 +5,9 @@ import pyaudio
 import re
 import whisper
 from event_manager import EventManager
-from vosk import Model, KaldiRecognizer, SetLogLevel
 from io import BytesIO
+from util import suppress_output, restore_output
+from vosk import Model, KaldiRecognizer, SetLogLevel
 
 class SpeechRecognizer:
     _instance = None
@@ -27,7 +28,15 @@ class SpeechRecognizer:
         self.is_audio_playing = False
         self.end_session_flag = False
         self.speech_detected = False
-        self.p = pyaudio.PyAudio()
+
+        old_stdout, old_stderr, devnull = suppress_output()
+        try:
+            self.p = pyaudio.PyAudio()
+        except Exception as e:
+            raise Exception(f"Failed to create pyaudio instance {str(e)}")
+        finally:
+            restore_output(old_stdout, old_stderr, devnull)
+
 
         self.rate = rate
         self.chunk = chunk
