@@ -2,7 +2,6 @@ import json
 import logging
 import requests
 import torch
-from TTS.api import TTS
 from io import StringIO
 
 class LLMInteraction:
@@ -12,7 +11,6 @@ class LLMInteraction:
         self.llm_url = config.llm_url
         self.llm_model = config.llm_model
         self.logger = logging.getLogger(__name__)
-        self.tts_model = TTS(config.tts_model_path).to(self.device)
 
     def query_llm(self, prompt):
         parameters = {
