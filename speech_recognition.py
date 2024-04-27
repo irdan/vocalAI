@@ -5,14 +5,13 @@ import pyaudio
 import re
 import whisper
 from event_manager import EventManager
-from vosk import Model, KaldiRecognizer
+from vosk import Model, KaldiRecognizer, SetLogLevel
 from io import BytesIO
 
 class SpeechRecognizer:
     _instance = None
     event_manager = EventManager.get_instance()
     logger = logging.getLogger(__name__)
-    p = pyaudio.PyAudio()
 
     def __new__(cls, config):
         if cls._instance is None:
@@ -28,16 +27,18 @@ class SpeechRecognizer:
         self.is_audio_playing = False
         self.end_session_flag = False
         self.speech_detected = False
+        self.p = pyaudio.PyAudio()
 
         self.rate = rate
         self.chunk = chunk
-        self.stream = SpeechRecognizer.p.open(format=pyaudio.paInt16,
+        self.stream = self.p.open(format=pyaudio.paInt16,
                                   channels=1, # mono
                                   rate=rate,
                                   input=True,
                                   frames_per_buffer=chunk)
 
     def _load_fast_recognizer(self):
+        SetLogLevel(-1)
         try:
             self.model = Model(self.config.vosk_model_path)
         except Exception as e:

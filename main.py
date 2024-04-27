@@ -15,11 +15,12 @@ def main():
     config = AppConfig(config_dict)
     logger.info("Config loaded")
 
+    audio_player = AudioPlayer()
+    llm_interaction = LLMInteraction(config)
+
     old_stdout, old_stderr, devnull = suppress_output()
     try:
-        audio_player = AudioPlayer()
         speech_recognizer = SpeechRecognizer(config)
-        llm_interaction = LLMInteraction(config)
         tts_handler = TTSHandler(config)
     finally:
         restore_output(old_stdout, old_stderr, devnull)
