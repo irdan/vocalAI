@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import Mock
-from event_manager import EventManager
+from vocalai.event_manager import EventManager
 
 class TestEventManager(unittest.TestCase):
 

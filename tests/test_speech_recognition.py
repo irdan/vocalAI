@@ -4,8 +4,8 @@ import wave
 from contextlib import contextmanager
 from io import BytesIO
 from unittest.mock import MagicMock, patch
-from speech_recognition import SpeechRecognizer
-from util import AppConfig, suppress_output, restore_output
+from vocalai.speech_recognition import SpeechRecognizer
+from vocalai.util import AppConfig, suppress_output, restore_output
 
 
 class TestSpeechRecognizer(unittest.TestCase):
