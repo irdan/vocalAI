@@ -4,9 +4,9 @@ import numpy as np
 import pyaudio
 import re
 import whisper
-from event_manager import EventManager
 from io import BytesIO
-from util import suppress_output, restore_output
+from vocalai.event_manager import EventManager
+from vocalai.util import suppress_output, restore_output
 from vosk import Model, KaldiRecognizer, SetLogLevel
 
 class SpeechRecognizer:

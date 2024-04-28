@@ -3,11 +3,11 @@ import numpy as np
 import torch
 import wave
 from io import BytesIO
-from TTS.api import TTS
-from util import suppress_output, restore_output
+from vocalai.util import suppress_output, restore_output
 
 class TTSHandler:
     def __init__(self, config):
+        from TTS.api import TTS # move import so it can be mocked in tests
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         if self.device != "cuda":
             raise RuntimeError("TTS requires a GPU")

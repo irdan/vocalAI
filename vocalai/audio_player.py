@@ -1,7 +1,7 @@
 import logging
 import threading
 import simpleaudio as sa
-from event_manager import EventManager
+from vocalai.event_manager import EventManager
 
 
 class AudioPlayer:

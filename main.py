@@ -1,10 +1,10 @@
 import logging
-from audio_player import AudioPlayer
-from speech_recognition import SpeechRecognizer
-from llm_interaction import LLMInteraction
-from tts_handler import TTSHandler
-from util import load_config, AppConfig
-from logger import setup_logging
+from vocalai.audio_player import AudioPlayer
+from vocalai.speech_recognition import SpeechRecognizer
+from vocalai.llm_interaction import LLMInteraction
+from vocalai.tts_handler import TTSHandler
+from vocalai.util import load_config, AppConfig
+from vocalai.logger import setup_logging
 
 
 def main():
